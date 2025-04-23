@@ -1,14 +1,29 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-import { Colors } from '@/constants/Colors';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import { Colors } from "@/constants/Colors";
+import { router } from "expo-router";
 
 export default function Profile() {
+  const goToLogin = () => {
+    router.push("/login"); // or use router.replace("/login") if you don't want back navigation
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.profileInfo}>
-          <Image source={{ uri: 'https://via.placeholder.com/60' }} style={styles.avatar} />
+          <Image
+            source={{ uri: "https://via.placeholder.com/60" }}
+            style={styles.avatar}
+          />
           <View>
             <Text style={styles.name}>Sandeep</Text>
             <Text style={styles.member}>Member since 797 days</Text>
@@ -26,7 +41,9 @@ export default function Profile() {
       <View style={styles.buyAgainBox}>
         <View>
           <Text style={styles.buyAgainTitle}>Gaps can delay results</Text>
-          <Text style={styles.buyAgainSubtitle}>Order Now, Stay Consistent!</Text>
+          <Text style={styles.buyAgainSubtitle}>
+            Order Now, Stay Consistent!
+          </Text>
         </View>
         <TouchableOpacity style={styles.buyButton}>
           <Text style={styles.buyButtonText}>Buy Again</Text>
@@ -35,12 +52,12 @@ export default function Profile() {
 
       <View style={styles.grid}>
         {[
-          { icon: 'document-text-outline', label: 'My Plan' },
-          { icon: 'trending-up-outline', label: 'Hair Progress' },
-          { icon: 'cube-outline', label: 'Orders' },
-          { icon: 'help-circle-outline', label: 'Help & Support' },
-          { icon: 'call-outline', label: 'Book a Call' },
-          { icon: 'nutrition-outline', label: 'Diet Plan' },
+          { icon: "document-text-outline", label: "My Plan" },
+          { icon: "trending-up-outline", label: "Hair Progress" },
+          { icon: "cube-outline", label: "Orders" },
+          { icon: "help-circle-outline", label: "Help & Support" },
+          { icon: "call-outline", label: "Book a Call" },
+          { icon: "nutrition-outline", label: "Diet Plan" },
         ].map((item, index) => (
           <TouchableOpacity style={styles.gridItem} key={index}>
             <Ionicons name={item.icon} size={24} color="black" />
@@ -50,14 +67,16 @@ export default function Profile() {
       </View>
 
       <View style={styles.menuBox}>
-        {['All Products', 'Terms & Policies', 'Read More'].map((item, index) => (
-          <TouchableOpacity style={styles.menuItem} key={index}>
-            <Text style={styles.menuText}>{item}</Text>
-            <Ionicons name="chevron-forward" size={18} color="#666" />
-          </TouchableOpacity>
-        ))}
+        {["All Products", "Terms & Policies", "Read More"].map(
+          (item, index) => (
+            <TouchableOpacity style={styles.menuItem} key={index}>
+              <Text style={styles.menuText}>{item}</Text>
+              <Ionicons name="chevron-forward" size={18} color="#666" />
+            </TouchableOpacity>
+          )
+        )}
       </View>
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity style={styles.logoutButton} onPress={goToLogin}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
 
@@ -71,18 +90,18 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 16,
     backgroundColor: Colors.light.brandSeconday,
   },
   profileInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   avatar: {
     width: 60,
@@ -92,21 +111,21 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   member: {
-    color: '#666',
+    color: "#666",
   },
   logButton: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
   },
   logText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   coinsBox: {
     paddingHorizontal: 16,
@@ -114,95 +133,95 @@ const styles = StyleSheet.create({
   },
   coinsText: {
     fontSize: 16,
-    color: '#fbbf24',
-    fontWeight: 'bold',
+    color: "#fbbf24",
+    fontWeight: "bold",
   },
   buyAgainBox: {
     margin: 16,
     backgroundColor: Colors.light.tint,
     padding: 16,
     borderRadius: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   buyAgainTitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   buyAgainSubtitle: {
-    color: '#dcedc8',
+    color: "#dcedc8",
   },
   buyButton: {
-    backgroundColor: '#cddc39',
+    backgroundColor: "#cddc39",
     padding: 10,
     borderRadius: 8,
   },
   buyButtonText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
     padding: 8,
   },
   gridItem: {
     backgroundColor: Colors.light.brandSeconday,
     padding: 16,
     borderRadius: 12,
-    width: '30%',
-    alignItems: 'center',
+    width: "30%",
+    alignItems: "center",
     marginVertical: 8,
   },
   gridText: {
     marginTop: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   menuBox: {
     margin: 16,
-    backgroundColor: '#fafafa',
+    backgroundColor: "#fafafa",
     borderRadius: 12,
     paddingVertical: 8,
     elevation: 1,
-    shadowColor: '#ccc',
+    shadowColor: "#ccc",
     shadowOpacity: 0.2,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
   },
   menuItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: "#eee",
   },
   menuText: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   logoutButton: {
     marginHorizontal: 16,
     marginTop: 8,
-    backgroundColor: '#e57373',
+    backgroundColor: "#e57373",
     borderRadius: 16,
     paddingVertical: 14,
-    alignItems: 'center',
+    alignItems: "center",
     elevation: 2,
   },
   logoutText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 16,
   },
   footer: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 16,
   },
   version: {
-    color: '#888',
+    color: "#888",
   },
 });
