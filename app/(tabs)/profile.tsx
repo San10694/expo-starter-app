@@ -8,13 +8,15 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Profile() {
   const goToLogin = () => {
     router.push("/login"); // or use router.replace("/login") if you don't want back navigation
+    AsyncStorage.removeItem("is_logged_in");
   };
 
   return (

@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -23,6 +24,7 @@ export default function LoginScreen() {
     if (isValid) {
       router.push("/(tabs)");
     }
+    AsyncStorage.setItem("is_logged_in", "true");
   };
 
   return (

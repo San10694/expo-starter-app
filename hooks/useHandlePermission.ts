@@ -6,7 +6,8 @@ const PERMISSION_KEY = 'notification_permission_status';
 const TIMESTAMP_KEY = 'notification_last_prompt_time';
 
 // Duration to wait before re-prompting (3 days). Set to 1 min for testing.
-const TIME_INTERVAL_MS = 60000;
+// Ideally we should keep this duration on config to avoid App release 
+const TIME_INTERVAL_MS = 5*60000;
 
 const useNotificationPermission = () => {
   const [hasPermission, setHasPermission] = useState(false);
