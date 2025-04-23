@@ -1,74 +1,266 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+} from "react-native";
+import { Colors } from "@/constants/Colors";
+import GenericBottomSheet from "@/components/BottomSheet";
+import useNotificationPermission from "@/hooks/useHandlePermission";
 
 export default function HomeScreen() {
+  const [showPermission, setShowPermission] = useState(true);
+  const { hasPermission, loading, checkPermission, requestPermission } =
+    useNotificationPermission();
+
+  const heroes = [
+    {
+      id: "1",
+      name: "23-Year-Old's Epic Hair Comeback!",
+      image: "https://via.placeholder.com/100x100",
+    },
+    {
+      id: "2",
+      name: "Results are best, my hair is back on my head",
+      image: "https://via.placeholder.com/100x100",
+    },
+    {
+      id: "3",
+      name: "Thicker hair, happier me!",
+      image: "https://via.placeholder.com/100x100",
+    },
+  ];
+
+  useEffect(() => {
+    if (!hasPermission && !loading) {
+      setTimeout(() => {
+        setShowPermission(true);
+      }, 1000);
+    }
+  }, []);
+
+  console.log("🚀 ~ HomeScreen ~ hasPermission:", hasPermission);
+  console.log("🚀 ~ HomeScreen ~ loading:", loading);
+  console.log("🚀 ~ HomeScreen ~ showPermission: ", showPermission);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <ScrollView style={styles.container}>
+      <GenericBottomSheet
+        isVisible={showPermission}
+        title="Small Reminders, Big Results"
+        subtitle="Turn on notifications to never lose sight of your hair goals"
+        primaryLabel="Enable Notification"
+        secondaryLabel="Not Now"
+        onPrimaryPress={() => {
+          // Enable notifications logic
+          setShowPermission(false);
+          requestPermission();
+        }}
+        onSecondaryPress={() => setShowPermission(false)}
+      />
+      <View style={styles.header}>
+        <Text style={styles.greeting}>Hi, Sandeep Tiwari</Text>
+      </View>
+
+      {/* Reorder Widget */}
+      <View style={styles.widgetBox}>
+        <Text style={styles.widgetTitle}>Reorder Your Kit</Text>
+        <View style={styles.card}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.cardTitle}>Want To See Results In Time?</Text>
+            <Text style={styles.cardText}>
+              Gaps can delay results. Order your kit now.
+            </Text>
+            <TouchableOpacity style={styles.primaryButton}>
+              <Text style={styles.primaryButtonText}>Order Now</Text>
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={{ uri: "https://via.placeholder.com/100x100" }}
+            style={styles.cardImage}
+          />
+        </View>
+      </View>
+
+      {/* Need Help Section */}
+      <View style={styles.widgetBox}>
+        <Text style={styles.widgetTitle}>Need Help?</Text>
+        <View style={styles.actionRow}>
+          <TouchableOpacity style={styles.helpButton}>
+            <Text style={styles.helpButtonText}>How To Use</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.helpButton}>
+            <Text style={styles.helpButtonText}>Diet Plan</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Diet Plan Widget */}
+      <View style={styles.widgetBox}>
+        <Text style={styles.widgetTitle}>Diet Plan</Text>
+        <View style={styles.card}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.cardText}>
+              Get your digestion on track by eliminating dairy
+            </Text>
+            <TouchableOpacity style={styles.primaryButton}>
+              <Text style={styles.primaryButtonText}>View My Plan</Text>
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={{
+              uri: "https://www.cookwithmanali.com/wp-content/uploads/2017/03/Homemade-Indian-Raita.jpg",
+            }}
+            style={styles.cardImage}
+          />
+        </View>
+      </View>
+
+      {/* Traya Heroes Carousel */}
+      <View style={styles.widgetBox}>
+        <Text style={styles.widgetTitle}>Traya Heroes</Text>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={heroes}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.heroCard}>
+              <Image source={{ uri: item.image }} style={styles.heroImage} />
+              <Text style={styles.heroTitle}>{item.name}</Text>
+            </View>
+          )}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      </View>
+
+      {/* Support CTA */}
+      <View style={styles.widgetBox}>
+        <Text style={styles.widgetTitle}>We are here for you, always.</Text>
+        <Text style={styles.cardText}>Talk to your hair experts for free.</Text>
+        <View style={styles.actionRow}>
+          <TouchableOpacity style={styles.secondaryButton}>
+            <Text style={styles.secondaryButtonText}>Chat with us</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.primaryButton}>
+            <Text style={styles.primaryButtonText}>Book A Call</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#f0f4f3",
+    padding: 16,
+    marginVertical: 16,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  header: {
+    backgroundColor: Colors.light.tint,
+    padding: 20,
+    borderRadius: 16,
+    marginBottom: 16,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  greeting: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "600",
+  },
+  widgetBox: {
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 16,
+    marginBottom: 20,
+    elevation: 1,
+  },
+  widgetTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 12,
+    color: Colors.light.text,
+  },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: Colors.light.text,
+    marginBottom: 4,
+  },
+  cardText: {
+    fontSize: 14,
+    color: Colors.light.text,
+    marginBottom: 12,
+  },
+  cardImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 12,
+    marginLeft: 12,
+  },
+  actionRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 12,
+    marginTop: 16,
+  },
+  primaryButton: {
+    backgroundColor: Colors.light.brandSeconday,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  primaryButtonText: {
+    color: Colors.light.text,
+    fontWeight: "bold",
+  },
+  secondaryButton: {
+    backgroundColor: Colors.light.brandSeconday,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  secondaryButtonText: {
+    color: Colors.light.text,
+    fontWeight: "600",
+  },
+  helpButton: {
+    flex: 1,
+    backgroundColor: Colors.light.brandSeconday,
+    paddingVertical: 14,
+    alignItems: "center",
+    borderRadius: 12,
+  },
+  helpButtonText: {
+    color: Colors.light.text,
+    fontWeight: "600",
+  },
+  heroCard: {
+    width: 150,
+    marginRight: 12,
+    borderRadius: 12,
+    overflow: "hidden",
+    backgroundColor: "#fafafa",
+    elevation: 1,
+    padding: 8,
+  },
+  heroImage: {
+    width: "100%",
+    height: 100,
+    borderRadius: 8,
+  },
+  heroTitle: {
+    fontSize: 13,
+    marginTop: 8,
+    fontWeight: "600",
+    color: "#444",
   },
 });

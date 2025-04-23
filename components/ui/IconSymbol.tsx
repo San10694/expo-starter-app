@@ -13,6 +13,11 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'video.collection':'ondemand-video',
+  'add.shopping.cart':'add-shopping-cart',
+  'person-outline' : 'person-outline'
+
+
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],
