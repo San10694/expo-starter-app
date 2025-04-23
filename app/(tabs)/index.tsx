@@ -11,41 +11,23 @@ import {
 import { Colors } from "@/constants/Colors";
 import GenericBottomSheet from "@/components/BottomSheet";
 import useNotificationPermission from "@/hooks/useHandlePermission";
+import CustomTextInput from "@/components/Searchbar";
 
 export default function HomeScreen() {
-  const [showPermission, setShowPermission] = useState(true);
-  const { hasPermission, loading, checkPermission, requestPermission } =
+  const [showPermission, setShowPermission] = useState(false);
+  const [text, setText] = useState("");
+  const { hasPermission, loading, shouldShowPrompt, requestPermission } =
     useNotificationPermission();
 
-  const heroes = [
-    {
-      id: "1",
-      name: "23-Year-Old's Epic Hair Comeback!",
-      image: "https://via.placeholder.com/100x100",
-    },
-    {
-      id: "2",
-      name: "Results are best, my hair is back on my head",
-      image: "https://via.placeholder.com/100x100",
-    },
-    {
-      id: "3",
-      name: "Thicker hair, happier me!",
-      image: "https://via.placeholder.com/100x100",
-    },
-  ];
-
   useEffect(() => {
-    if (!hasPermission && !loading) {
+    if (shouldShowPrompt) {
       setTimeout(() => {
         setShowPermission(true);
       }, 1000);
     }
-  }, []);
+  }, [shouldShowPrompt]);
 
-  console.log("🚀 ~ HomeScreen ~ hasPermission:", hasPermission);
-  console.log("🚀 ~ HomeScreen ~ loading:", loading);
-  console.log("🚀 ~ HomeScreen ~ showPermission: ", showPermission);
+  console.log("🚀 ~ HomeScreen ~ shouldShowPrompt:", shouldShowPrompt);
 
   return (
     <ScrollView style={styles.container}>
@@ -62,9 +44,15 @@ export default function HomeScreen() {
         }}
         onSecondaryPress={() => setShowPermission(false)}
       />
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Text style={styles.greeting}>Hi, Sandeep Tiwari</Text>
-      </View>
+      </View> */}
+      <CustomTextInput
+        label=""
+        placeholder="Search for your kit"
+        value={text}
+        onChangeText={setText}
+      />
 
       {/* Reorder Widget */}
       <View style={styles.widgetBox}>
@@ -80,7 +68,9 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
           <Image
-            source={{ uri: "https://via.placeholder.com/100x100" }}
+            source={{
+              uri: "https://cdn.shopify.com/s/files/1/0100/1622/7394/files/Group_102353236_1.png?v=1691063839",
+            }}
             style={styles.cardImage}
           />
         </View>
@@ -113,7 +103,7 @@ export default function HomeScreen() {
           </View>
           <Image
             source={{
-              uri: "https://www.cookwithmanali.com/wp-content/uploads/2017/03/Homemade-Indian-Raita.jpg",
+              uri: "https://cdn.shopify.com/s/files/1/0100/1622/7394/files/Group_1_1_1.png?v=1691063839",
             }}
             style={styles.cardImage}
           />
@@ -130,7 +120,11 @@ export default function HomeScreen() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.heroCard}>
-              <Image source={{ uri: item.image }} style={styles.heroImage} />
+              <Image
+                source={item.image}
+                style={styles.heroImage}
+                resizeMode="cover"
+              />
               <Text style={styles.heroTitle}>{item.name}</Text>
             </View>
           )}
@@ -153,6 +147,24 @@ export default function HomeScreen() {
     </ScrollView>
   );
 }
+
+const heroes = [
+  {
+    id: "1",
+    name: "23-Year-Old's Epic Hair Comeback!",
+    image: require("../../assets/images/hero-profile.webp"),
+  },
+  {
+    id: "2",
+    name: "Results are best, my hair is back on my head",
+    image: require("../../assets/images/hero-profile.webp"),
+  },
+  {
+    id: "3",
+    name: "Thicker hair, happier me!",
+    image: require("../../assets/images/hero-profile.webp"),
+  },
+];
 
 const styles = StyleSheet.create({
   container: {

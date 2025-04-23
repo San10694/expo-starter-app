@@ -11,7 +11,7 @@ export default function Index() {
 
   useEffect(() => {
     if (isReady) {
-      const isLoggedIn = false;
+      const isLoggedIn = true;
       router.replace(isLoggedIn ? "/(tabs)" : "/login");
     }
   }, [isReady]);

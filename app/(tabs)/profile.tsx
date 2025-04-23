@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
@@ -17,73 +18,77 @@ export default function Profile() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.profileInfo}>
-          <Image
-            source={{ uri: "https://via.placeholder.com/60" }}
-            style={styles.avatar}
-          />
-          <View>
-            <Text style={styles.name}>Sandeep</Text>
-            <Text style={styles.member}>Member since 797 days</Text>
+    <SafeAreaView style={{ flex: 1, paddingTop: 20 }}>
+      <ScrollView style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.profileInfo}>
+            <Image
+              source={{
+                uri: "https://lh3.googleusercontent.com/ogw/AF2bZygjhkryt3O8ET-updrEWh2Sf42mj0Bsp3XqlPoRz6Xe66w=s32-c-mo",
+              }}
+              style={styles.avatar}
+            />
+            <View>
+              <Text style={styles.name}>Sandeep</Text>
+              <Text style={styles.member}>Member since 1 year</Text>
+            </View>
           </View>
-        </View>
-        <TouchableOpacity style={styles.logButton}>
-          <Text style={styles.logText}>Log And Earn</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.coinsBox}>
-        <Text style={styles.coinsText}>1082 coins</Text>
-      </View>
-
-      <View style={styles.buyAgainBox}>
-        <View>
-          <Text style={styles.buyAgainTitle}>Gaps can delay results</Text>
-          <Text style={styles.buyAgainSubtitle}>
-            Order Now, Stay Consistent!
-          </Text>
-        </View>
-        <TouchableOpacity style={styles.buyButton}>
-          <Text style={styles.buyButtonText}>Buy Again</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.grid}>
-        {[
-          { icon: "document-text-outline", label: "My Plan" },
-          { icon: "trending-up-outline", label: "Hair Progress" },
-          { icon: "cube-outline", label: "Orders" },
-          { icon: "help-circle-outline", label: "Help & Support" },
-          { icon: "call-outline", label: "Book a Call" },
-          { icon: "nutrition-outline", label: "Diet Plan" },
-        ].map((item, index) => (
-          <TouchableOpacity style={styles.gridItem} key={index}>
-            <Ionicons name={item.icon} size={24} color="black" />
-            <Text style={styles.gridText}>{item.label}</Text>
+          <TouchableOpacity style={styles.logButton}>
+            <Text style={styles.logText}>Log And Earn</Text>
           </TouchableOpacity>
-        ))}
-      </View>
+        </View>
 
-      <View style={styles.menuBox}>
-        {["All Products", "Terms & Policies", "Read More"].map(
-          (item, index) => (
-            <TouchableOpacity style={styles.menuItem} key={index}>
-              <Text style={styles.menuText}>{item}</Text>
-              <Ionicons name="chevron-forward" size={18} color="#666" />
+        <View style={styles.coinsBox}>
+          <Text style={styles.coinsText}>1082 coins</Text>
+        </View>
+
+        <View style={styles.buyAgainBox}>
+          <View>
+            <Text style={styles.buyAgainTitle}>Gaps can delay results</Text>
+            <Text style={styles.buyAgainSubtitle}>
+              Order Now, Stay Consistent!
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.buyButton}>
+            <Text style={styles.buyButtonText}>Buy Again</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.grid}>
+          {[
+            { icon: "document-text-outline", label: "My Plan" },
+            { icon: "trending-up-outline", label: "Hair Progress" },
+            { icon: "cube-outline", label: "Orders" },
+            { icon: "help-circle-outline", label: "Help & Support" },
+            { icon: "call-outline", label: "Book a Call" },
+            { icon: "nutrition-outline", label: "Diet Plan" },
+          ].map((item, index) => (
+            <TouchableOpacity style={styles.gridItem} key={index}>
+              <Ionicons name={item.icon} size={24} color="black" />
+              <Text style={styles.gridText}>{item.label}</Text>
             </TouchableOpacity>
-          )
-        )}
-      </View>
-      <TouchableOpacity style={styles.logoutButton} onPress={goToLogin}>
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
+          ))}
+        </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.version}>Traya. Version 1.8.2</Text>
-      </View>
-    </ScrollView>
+        <View style={styles.menuBox}>
+          {["All Products", "Terms & Policies", "Read More"].map(
+            (item, index) => (
+              <TouchableOpacity style={styles.menuItem} key={index}>
+                <Text style={styles.menuText}>{item}</Text>
+                <Ionicons name="chevron-forward" size={18} color="#666" />
+              </TouchableOpacity>
+            )
+          )}
+        </View>
+        <TouchableOpacity style={styles.logoutButton} onPress={goToLogin}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+
+        <View style={styles.footer}>
+          <Text style={styles.version}>Version 1.8.2</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -223,5 +228,6 @@ const styles = StyleSheet.create({
   },
   version: {
     color: "#888",
+    fontWeight: "bold",
   },
 });

@@ -7,7 +7,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -20,19 +20,11 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // 👈 Simulated login state
-  console.log("🚀 ~ RootLayout ~ isLoggedIn:", isLoggedIn);
+  // console.log("🚀 ~ RootLayout ~ isLoggedIn:", isLoggedIn);
 
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-
-      // 🔐 Simulate a login check (replace this with real logic)
-      const checkLogin = async () => {
-        const userToken = null; // Replace with AsyncStorage / SecureStore call
-        setIsLoggedIn(!!userToken);
-      };
-      checkLogin();
     }
   }, [loaded]);
 

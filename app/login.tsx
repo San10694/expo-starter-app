@@ -11,6 +11,9 @@ import {
   SafeAreaView,
 } from "react-native";
 
+//https://cdn-trya.goswirl.live/2524_3.mp4
+//https://cdn-trya.goswirl.live/1705300758_3.mp4
+
 export default function LoginScreen() {
   const [mobileNumber, setMobileNumber] = useState("");
 
